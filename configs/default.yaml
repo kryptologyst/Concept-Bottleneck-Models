@@ -1,0 +1,71 @@
+# Default configuration for Concept Bottleneck Models
+
+# Model configuration
+model:
+  input_dim: 4  # Will be set automatically based on dataset
+  concept_dim: 4
+  task_dim: 3  # Will be set automatically based on dataset
+  hidden_dims: [64, 32]
+  dropout_rate: 0.1
+  concept_activation: "sigmoid"
+  task_activation: "softmax"
+
+# Training configuration
+training:
+  learning_rate: 0.001
+  weight_decay: 1e-4
+  concept_loss_weight: 1.0
+  task_loss_weight: 1.0
+  epochs: 100
+  batch_size: 32
+  patience: 10
+  random_seed: 42
+
+# Data configuration
+data:
+  dataset: "iris"  # "iris" or "synthetic"
+  test_size: 0.2
+  val_size: 0.1
+  standardize: true
+  
+  # Synthetic dataset parameters (if dataset == "synthetic")
+  synthetic:
+    n_samples: 1000
+    n_features: 20
+    n_classes: 3
+    n_concepts: 5
+
+# Evaluation configuration
+evaluation:
+  concept_completeness: true
+  concept_sensitivity: true
+  concept_interactions: true
+  feature_attributions: true
+  baseline_comparison: true
+  
+  # Sensitivity analysis parameters
+  sensitivity:
+    perturbation_std: 0.1
+    n_samples: 100
+  
+  # Interaction analysis parameters
+  interactions:
+    top_k: 5
+
+# Visualization configuration
+visualization:
+  save_plots: true
+  plot_format: "png"
+  dpi: 300
+  figure_size: [10, 6]
+
+# Device configuration
+device:
+  auto_detect: true  # CUDA -> MPS -> CPU
+  # device: "cuda"  # Override auto-detection if needed
+
+# Logging configuration
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "logs/training.log"
